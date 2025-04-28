@@ -5,7 +5,7 @@ import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 
 @JsonClass(generateAdapter = true)
-data class GetItemResultDto(
+data class ItemDetailDto(
     val body: String?,
     val coediting: Boolean?,
     @Json(name = "comments_count")
