@@ -1,4 +1,4 @@
-package com.example.qiitademo.data.repository
+package com.example.qiitademo.domain.repository
 
 import com.example.qiitademo.data.remote.ItemDetailDto
 import com.example.qiitademo.data.remote.SearchItemsDto
