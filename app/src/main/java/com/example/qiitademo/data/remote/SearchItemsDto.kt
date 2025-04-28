@@ -3,7 +3,8 @@ package com.example.qiitademo.data.remote
 import com.example.qiitademo.domain.model.Item
 
 
-class SearchItemsDto : ArrayList<SearchItemsDtoItem>()
+
+typealias SearchItemsDto = List<SearchItemsDtoItem>
 
 fun SearchItemsDto.toItems(): List<Item> {
     return this.mapNotNull { dtoItem ->
