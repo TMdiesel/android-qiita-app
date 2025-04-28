@@ -6,7 +6,7 @@ import retrofit2.http.Query
 
 
 interface QiitaApi {
-    @GET("items/")
+    @GET("items")
     suspend fun searchItems(@Query("query") query: String): SearchItemsDto
 
     @GET("items/{id}")
