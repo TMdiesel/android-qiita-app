@@ -33,7 +33,10 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
+import androidx.navigation.NavController
 import androidx.compose.ui.Modifier
+import com.example.qiitademo.presentation.ScreenRoute
+import androidx.compose.foundation.clickable
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -43,7 +46,8 @@ import com.example.qiitademo.presentation.ui.theme.QiitaDemoTheme
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SearchItemsScreen(
-    viewModel: SearchItemsViewModel = hiltViewModel()
+    viewModel: SearchItemsViewModel = hiltViewModel(),
+    navController: NavController? = null
 ) {
     val state by viewModel.state.collectAsState()
     var active by remember { mutableStateOf(true) }
@@ -68,7 +72,12 @@ fun SearchItemsScreen(
                     } else if (state.error != null) {
                         Text(text = state.error ?: "Error occurred")
                     } else {
-                        ItemList(items = state.items)
+                        ItemList(
+                            items = state.items,
+                            onItemClick = { itemId ->
+                                navController?.navigate("${ScreenRoute.ItemDetailScreen.route}/$itemId")
+                            }
+                        )
                     }
                 }
             }
@@ -77,7 +86,10 @@ fun SearchItemsScreen(
 }
 
 @Composable
-private fun ItemList(items: List<Item>) {
+private fun ItemList(
+    items: List<Item>,
+    onItemClick: (String) -> Unit = {}
+) {
     LazyColumn(
         modifier = Modifier.fillMaxSize(),
         contentPadding = PaddingValues(16.dp),
@@ -87,7 +99,8 @@ private fun ItemList(items: List<Item>) {
             Card(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .wrapContentHeight(),
+                    .wrapContentHeight()
+                    .clickable { item.id?.let { onItemClick(it) } },
                 elevation = CardDefaults.cardElevation(defaultElevation = 4.dp),
                 shape = RoundedCornerShape(12.dp)
             ) {

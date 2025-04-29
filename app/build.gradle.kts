@@ -12,7 +12,7 @@ android {
 
     defaultConfig {
         applicationId = "com.example.qiitademo"
-        minSdk = 24
+        minSdk = 26
         targetSdk = 35
         versionCode = 1
         versionName = "1.0"
@@ -58,6 +58,7 @@ dependencies {
     implementation(libs.hilt.android)
     implementation(libs.navigation.compose)
     implementation(libs.hilt.navigation.compose)
+    implementation(libs.markwon.core)
     ksp(libs.hilt.compiler)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
